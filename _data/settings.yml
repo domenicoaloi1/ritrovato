@@ -8,7 +8,7 @@
 # Multi-line text after | needs no quotes: just keep each line indented.
 
 # Page language: "en" or "it"
-language: "en"
+language: "it"
 
 # Optional: your first name or a nickname, shown as "This belongs to ...".
 # Leave empty ("") to hide it.
@@ -16,7 +16,7 @@ owner_name: ""
 
 # Shown on the generic page and on items without their own message.
 default_message: |
-  Thank you for finding this! Please get in touch so I can get it back.
+  Grazie di cuore! Scrivimi e ci mettiamo d'accordo per la restituzione.
 
 # How the finder can reach you, in order of preference (the first one is
 # the most prominent). Keep the ones you want and delete the others.
@@ -28,7 +28,7 @@ contacts:
   # Email: use a dedicated alias you can throw away, not your main address.
   # It is visible to anyone, spam bots included.
   - type: email
-    address: "you@example.com"
+    address: "hotrovato.domenico@gmail.com"
 
   # Phone call. With country code, e.g. "+<country code> <number>",
   # in quotes; spaces are fine.
