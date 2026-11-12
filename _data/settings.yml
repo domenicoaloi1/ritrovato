@@ -32,8 +32,8 @@ contacts:
 
   # Phone call. With country code, e.g. "+<country code> <number>",
   # in quotes; spaces are fine.
-  # - type: phone
-  #   number: "+00 000 000 0000"
+  - type: phone
+    number: "+39 000 000 0000"
 
   # WhatsApp chat with a pre-filled message. With country code, e.g.
   # "+<country code> <number>", in quotes; spaces are fine.
