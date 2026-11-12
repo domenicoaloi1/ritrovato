@@ -1,0 +1,38 @@
+# Technical Jekyll settings — you normally don't need to edit this file.
+#
+# Your settings live in _data/settings.yml.
+# Your items live in _items/ (one file per item).
+
+# No theme: the pages bring their own minimal style. Without this line
+# GitHub Pages would add its default theme and its stylesheet.
+theme: null
+
+# A YAML mistake between the --- lines of an item stops the update
+# (red cross in the Actions tab) instead of publishing a broken page.
+strict_front_matter: true
+
+# Each file in _items/ becomes a page: _items/keys.md -> /keys
+collections:
+  items:
+    output: true
+    permalink: /:name
+
+defaults:
+  - scope:
+      path: ""
+      type: items
+    values:
+      layout: found
+
+# Files that must never be published as pages.
+exclude:
+  - README.md
+  - LICENSE
+  - "*.code-workspace"
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Do not set `baseurl` or `url`: GitHub Pages fills them in from the
+# repository name, so renaming the repository keeps internal links working.

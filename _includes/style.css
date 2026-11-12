@@ -1,0 +1,87 @@
+/* Inlined into every page: no external files, fonts or scripts. */
+:root {
+  color-scheme: light dark;
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --muted: #555555;
+  --accent: #0b57d0;
+  --accent-fg: #ffffff;
+  --border: #767676;
+  --warn-bg: #fff4ce;
+  --warn-fg: #4a3b00;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121212;
+    --fg: #eeeeee;
+    --muted: #bbbbbb;
+    --accent: #8ab4f8;
+    --accent-fg: #0b1a33;
+    --border: #8a8a8a;
+    --warn-bg: #4a3b00;
+    --warn-fg: #fff4ce;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 1.0625rem/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+main { max-width: 34rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+h1 { font-size: 1.75rem; line-height: 1.2; margin: 0 0 0.5rem; }
+h2 { font-size: 1.25rem; margin: 2rem 0 0.75rem; }
+h3 { font-size: 1.0625rem; margin: 0 0 0.5rem; }
+.description, .owner { color: var(--muted); margin: 0.25rem 0; }
+.message { margin: 1.25rem 0; }
+.warning {
+  background: var(--warn-bg);
+  color: var(--warn-fg);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+}
+.contacts { list-style: none; margin: 0; padding: 0; }
+.contacts li { margin: 0 0 1.25rem; }
+.btn, button {
+  display: block;
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--accent);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--accent);
+  font: inherit;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* The first contact is the preferred one. */
+.contacts li:first-child .btn,
+.contacts li:first-child button { background: var(--accent); color: var(--accent-fg); }
+.value {
+  display: block;
+  margin-top: 0.25rem;
+  text-align: center;
+  color: var(--muted);
+  -webkit-user-select: all;
+  user-select: all;
+  overflow-wrap: anywhere;
+}
+label { display: block; font-weight: 600; margin: 0.75rem 0 0.25rem; }
+textarea, input {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--bg);
+  color: var(--fg);
+  font: inherit;
+}
+button { margin-top: 1rem; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.small { font-size: 0.9375rem; color: var(--muted); margin: 0.25rem 0; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }

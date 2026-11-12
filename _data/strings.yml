@@ -1,0 +1,56 @@
+# Fixed texts of the page, one block per language.
+# You only need to edit this file to add a language: copy the "en" block,
+# change its key (e.g. "fr") and translate the values. Keep every line, and
+# keep the placeholders in {braces} as they are: they are filled in automatically.
+#   {title} -> the item's title        {id} -> the item's address, e.g. keys
+#   {owner} -> owner_name from settings
+# If a language key is "no" (Norwegian), write it in quotes: YAML 1.1
+# reads a bare no as false.
+
+en:
+  heading_item: "You found: {title}"
+  heading_generic: "You found something that belongs to me"
+  belongs_to: "This belongs to {owner}."
+  contact_heading: "How to reach me"
+  reassurance: "This page will never ask you to log in, pay or install anything."
+  not_configured: "This page is not fully set up yet."
+  email_label: "Send an email"
+  phone_label: "Call"
+  whatsapp_label: "Message on WhatsApp"
+  copy_hint: "If a button does not work, copy the address or number shown under it."
+  email_subject_item: "Found: {title} ({id})"
+  email_subject_generic: "I found something of yours"
+  message_item: "Hi, I found your item “{title}” ({id})."
+  message_generic: "Hi, I found something that belongs to you."
+  # Added after the message in emails and WhatsApp, for the finder to fill in.
+  # \n means a new line (only inside "double quotes").
+  message_prompt: "Where I found it: \nWhere it is now: "
+  form_heading: "Send a message"
+  form_message_label: "Your message"
+  form_message_hint: "Where did you find it, and where is it now?"
+  form_reply_label: "Your email or phone, if you want a reply"
+  form_submit: "Send"
+  form_service_note: "Your message is delivered by an external service."
+
+it:
+  heading_item: "Hai trovato: {title}"
+  heading_generic: "Hai trovato qualcosa che mi appartiene"
+  belongs_to: "Appartiene a {owner}."
+  contact_heading: "Come contattarmi"
+  reassurance: "Questa pagina non ti chiederà mai di accedere, pagare o installare nulla."
+  not_configured: "Questa pagina non è ancora configurata del tutto."
+  email_label: "Invia un'email"
+  phone_label: "Chiama"
+  whatsapp_label: "Scrivi su WhatsApp"
+  copy_hint: "Se un pulsante non funziona, copia l'indirizzo o il numero scritto sotto."
+  email_subject_item: "Trovato: {title} ({id})"
+  email_subject_generic: "Ho trovato qualcosa di tuo"
+  message_item: "Ciao, ho trovato il tuo oggetto “{title}” ({id})."
+  message_generic: "Ciao, ho trovato qualcosa che ti appartiene."
+  message_prompt: "Dove l'ho trovato: \nDove si trova ora: "
+  form_heading: "Invia un messaggio"
+  form_message_label: "Il tuo messaggio"
+  form_message_hint: "Dove l'hai trovato e dove si trova ora?"
+  form_reply_label: "La tua email o il tuo numero di telefono, se vuoi una risposta"
+  form_submit: "Invia"
+  form_service_note: "Il messaggio viene recapitato tramite un servizio esterno."

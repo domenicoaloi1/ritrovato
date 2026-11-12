@@ -1,0 +1,10 @@
+# Editor and OS files
+*.code-workspace
+.DS_Store
+Thumbs.db
+
+# Jekyll build output (only if you build locally)
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/

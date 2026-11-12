@@ -1,0 +1,100 @@
+{%- comment -%}
+  One <li> per contact in _data/settings.yml, in the order given.
+  Skipped: unknown types, contacts without a value, and contacts still set
+  to a template example value (so the finder never writes to a fake one).
+  Sets for the layout:
+    shown       - how many contacts were rendered
+    copyable    - how many of them show an address or number to copy
+    placeholder - true if a contact still has a template example value
+  Expects from the layout: t, subject, prefill, is_item, item_id.
+{%- endcomment -%}
+{%- assign shown = 0 -%}
+{%- assign copyable = 0 -%}
+{%- assign placeholder = false -%}
+{%- capture prefill_long -%}{{ prefill }}
+
+{{ t.message_prompt }}{%- endcapture -%}
+{%- assign subject_q = subject | cgi_escape | replace: "+", "%20" -%}
+{%- assign prefill_q = prefill_long | cgi_escape | replace: "+", "%20" -%}
+{%- for c in site.data.settings.contacts -%}
+  {%- assign type = c.type | strip | downcase -%}
+  {%- assign is_example = false -%}
+  {%- case type -%}
+
+  {%- when "email" -%}
+    {%- assign v = c.address | strip -%}
+    {%- assign v_low = v | downcase -%}
+    {%- if v_low contains "@example." -%}{%- assign is_example = true -%}{%- endif -%}
+    {%- if is_example -%}
+      {%- assign placeholder = true -%}
+    {%- elsif v != "" -%}
+      {%- assign shown = shown | plus: 1 -%}
+      {%- assign copyable = copyable | plus: 1 %}
+<li>
+<a class="btn" href="mailto:{{ v | escape }}?subject={{ subject_q }}&amp;body={{ prefill_q }}">{{ t.email_label | escape }}</a>
+<span class="value">{{ v | escape }}</span>
+</li>
+    {%- endif -%}
+
+  {%- when "phone", "whatsapp" -%}
+    {%- assign v = c.number | strip -%}
+    {%- comment -%}
+      A number written without quotes, like +393331234567, reaches us as an
+      integer without its "+": put it back. (plus: 0 equals the original
+      value only when the value is a real number, not a string.)
+    {%- endcomment -%}
+    {%- assign n = c.number | plus: 0 -%}
+    {%- if n == c.number -%}{%- assign v = v | prepend: "+" -%}{%- endif -%}
+    {%- assign v_start = v | slice: 0, 3 -%}
+    {%- if v_start == "+00" -%}{%- assign is_example = true -%}{%- endif -%}
+    {%- if is_example -%}
+      {%- assign placeholder = true -%}
+    {%- elsif v != "" -%}
+      {%- assign shown = shown | plus: 1 -%}
+      {%- assign copyable = copyable | plus: 1 -%}
+      {%- if type == "phone" -%}
+        {%- assign v_tel = v | remove: " " %}
+<li>
+<a class="btn" href="tel:{{ v_tel | escape }}">{{ t.phone_label | escape }}</a>
+<span class="value">{{ v | escape }}</span>
+</li>
+      {%- else -%}
+        {%- assign v_wa = v | remove: " " | remove: "+" | remove: "-" | remove: "(" | remove: ")" | remove: "." | remove: "/" -%}
+        {%- assign v_wa_start = v_wa | slice: 0, 2 -%}
+        {%- if v_wa_start == "00" -%}{%- assign v_wa = v_wa | remove_first: "00" -%}{%- endif %}
+<li>
+<a class="btn" href="https://wa.me/{{ v_wa | escape }}?text={{ prefill_q }}" rel="noopener noreferrer">{{ t.whatsapp_label | escape }}</a>
+<span class="value">{{ v | escape }}</span>
+</li>
+      {%- endif -%}
+    {%- endif -%}
+
+  {%- when "form" -%}
+    {%- assign v = c.action | strip -%}
+    {%- if v contains "your-form-id" -%}{%- assign is_example = true -%}{%- endif -%}
+    {%- if is_example -%}
+      {%- assign placeholder = true -%}
+    {%- elsif v != "" -%}
+      {%- assign shown = shown | plus: 1 -%}
+      {%- assign f = forloop.index %}
+<li class="form">
+<h3>{{ t.form_heading | escape }}</h3>
+<form action="{{ v | escape }}" method="POST">
+<input type="hidden" name="_subject" value="{{ subject | escape }}">
+{%- if is_item %}
+<input type="hidden" name="item" value="{{ item_id | escape }}">
+{%- endif %}
+<label for="message-{{ f }}">{{ t.form_message_label | escape }}</label>
+<p class="small" id="message-hint-{{ f }}">{{ t.form_message_hint | escape }}</p>
+<textarea id="message-{{ f }}" name="message" rows="5" required aria-describedby="message-hint-{{ f }}">{{ prefill | escape }}</textarea>
+<label for="reply-{{ f }}">{{ t.form_reply_label | escape }}</label>
+<input id="reply-{{ f }}" name="reply_to" type="text">
+<input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+<p class="small">{{ t.form_service_note | escape }}</p>
+<button type="submit">{{ t.form_submit | escape }}</button>
+</form>
+</li>
+    {%- endif -%}
+
+  {%- endcase -%}
+{%- endfor -%}

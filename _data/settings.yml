@@ -1,0 +1,47 @@
+# Your settings. Everything in this file is PUBLIC, forever:
+# anyone can read it in the repository and in its history.
+# Never put your home address or your full name here.
+#
+# YAML tips: keep the indentation exactly as shown (spaces, not tabs),
+# and put text in "quotes" — especially phone numbers and words like
+# yes / no / on / off, which YAML would otherwise turn into true / false.
+# Multi-line text after | needs no quotes: just keep each line indented.
+
+# Page language: "en" or "it"
+language: "en"
+
+# Optional: your first name or a nickname, shown as "This belongs to ...".
+# Leave empty ("") to hide it.
+owner_name: ""
+
+# Shown on the generic page and on items without their own message.
+default_message: |
+  Thank you for finding this! Please get in touch so I can get it back.
+
+# How the finder can reach you, in order of preference (the first one is
+# the most prominent). Keep the ones you want and delete the others.
+# To enable a commented-out contact, delete "# " (the hash AND the space
+# after it) at the start of each of its lines.
+# While a contact still has its example value, the page shows a
+# "not configured yet" warning.
+contacts:
+  # Email: use a dedicated alias you can throw away, not your main address.
+  # It is visible to anyone, spam bots included.
+  - type: email
+    address: "you@example.com"
+
+  # Phone call. With country code, e.g. "+<country code> <number>",
+  # in quotes; spaces are fine.
+  # - type: phone
+  #   number: "+00 000 000 0000"
+
+  # WhatsApp chat with a pre-filled message. With country code, e.g.
+  # "+<country code> <number>", in quotes; spaces are fine.
+  # - type: whatsapp
+  #   number: "+00 000 000 0000"
+
+  # Web form that sends you an email without showing your address.
+  # Create a free form on a service such as https://formspree.io and paste
+  # its endpoint URL here.
+  # - type: form
+  #   action: "https://formspree.io/f/your-form-id"

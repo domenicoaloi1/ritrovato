@@ -1,0 +1,96 @@
+{%- comment -%}
+  The page the finder sees. Used by every item in _items/ (item page) and by
+  index.html and 404.html (generic page, no item).
+  Texts come from _data/strings.yml, settings from _data/settings.yml.
+{%- endcomment -%}
+
+{%- assign s = site.data.settings -%}
+
+{%- comment -%} Language, falling back to English if it has no texts. {%- endcomment -%}
+{%- assign lang = s.language | default: "en" | strip | downcase -%}
+{%- assign t = site.data.strings[lang] -%}
+{%- unless t -%}
+  {%- assign lang = "en" -%}
+  {%- assign t = site.data.strings.en -%}
+{%- endunless -%}
+
+{%- comment -%} Item page or generic page. {%- endcomment -%}
+{%- if page.collection == "items" -%}
+  {%- assign is_item = true -%}
+  {%- assign item_id = page.url | remove_first: "/" -%}
+  {%- assign item_title = page.title | strip -%}
+  {%- if item_title == "" -%}{%- assign item_title = item_id -%}{%- endif -%}
+  {%- assign title_html = item_title | escape -%}
+  {%- assign heading = t.heading_item | escape | replace: "{title}", title_html -%}
+  {%- assign subject = t.email_subject_item | replace: "{title}", item_title | replace: "{id}", item_id -%}
+  {%- assign prefill = t.message_item | replace: "{title}", item_title | replace: "{id}", item_id -%}
+  {%- assign description = page.description | strip -%}
+  {%- assign message_html = content | strip -%}
+{%- else -%}
+  {%- assign is_item = false -%}
+  {%- assign item_id = "" -%}
+  {%- assign heading = t.heading_generic | escape -%}
+  {%- assign subject = t.email_subject_generic -%}
+  {%- assign prefill = t.message_generic -%}
+  {%- assign description = "" -%}
+  {%- assign message_html = "" -%}
+{%- endif -%}
+{%- if message_html == "" -%}
+  {%- assign message_html = s.default_message | markdownify | strip -%}
+{%- endif -%}
+
+{%- assign owner = s.owner_name | strip -%}
+{%- assign owner_html = owner | escape -%}
+
+{%- comment -%}
+  Build the contacts first: the include also counts them (shown, copyable)
+  and spots example values left from the template (placeholder).
+{%- endcomment -%}
+{%- capture contacts_html -%}{%- include contacts.html -%}{%- endcapture -%}
+{%- if placeholder or shown == 0 -%}
+  {%- assign not_configured = true -%}
+{%- else -%}
+  {%- assign not_configured = false -%}
+{%- endif -%}
+<!DOCTYPE html>
+<html lang="{{ lang | escape }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="data:,">
+<title>{{ heading }}</title>
+<style>
+{% include style.css %}
+</style>
+</head>
+<body>
+<main>
+{%- if not_configured %}
+<p class="warning">{{ t.not_configured | escape }}</p>
+{%- endif %}
+<h1>{{ heading }}</h1>
+{%- if description != "" %}
+<p class="description">{{ description | escape }}</p>
+{%- endif %}
+{%- if owner != "" %}
+{%- assign belongs_html = t.belongs_to | escape | replace: "{owner}", owner_html %}
+<p class="owner">{{ belongs_html }}</p>
+{%- endif %}
+<div class="message">
+{{ message_html }}
+</div>
+{%- if shown > 0 %}
+<h2>{{ t.contact_heading | escape }}</h2>
+<ul class="contacts">
+{{ contacts_html }}
+</ul>
+{%- if copyable > 0 %}
+<p class="small">{{ t.copy_hint | escape }}</p>
+{%- endif %}
+<p class="small">{{ t.reassurance | escape }}</p>
+{%- endif %}
+</main>
+</body>
+</html>
